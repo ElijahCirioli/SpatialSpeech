@@ -1,5 +1,6 @@
 let ml;
 
+//load the tensorflow js model from the CDN
 const setupModel = () => {
 	cocoSsd
 		.load()
@@ -13,6 +14,7 @@ const setupModel = () => {
 		});
 };
 
+//return a list of objects given an image
 const analyze = async canvas => {
 	return ml
 		.detect(canvas)

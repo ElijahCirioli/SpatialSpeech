@@ -6,6 +6,7 @@ const setupSpeech = () => {
 	}
 };
 
+//speak out a given string
 const speak = str => {
 	const sound = new SpeechSynthesisUtterance(str);
 
@@ -16,19 +17,23 @@ const speak = str => {
 	window.speechSynthesis.speak(sound);
 };
 
+//take a list of objects and speak them out in a sentence
 const listObjects = groups => {
 	const fifthWidth = rightCanvas.width / 5;
 
 	let output = "";
 	if (groups.length > 0) {
 		groups.forEach(g => {
+			//round depth to nearest 0.5
 			const roundedDepth = Math.round(g.depth * 2) / 2;
 
+			//add S if plural
 			let plural = "";
 			if (g.size > 1) {
 				plural = "s";
 			}
 
+			//determine which horizontal fifth of screen it falls within
 			let direction;
 			switch (Math.floor(g.pos.x / fifthWidth)) {
 				case 0:
@@ -48,6 +53,7 @@ const listObjects = groups => {
 					break;
 			}
 
+			//create sentence for this group
 			output += `${g.size} ${g.class + plural} ${roundedDepth} meters ${direction}. `;
 		});
 

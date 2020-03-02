@@ -1,9 +1,11 @@
+//maximum distance in pixels and depth in meters that grouped objects can be from each other
 const distanceCutoff = 60;
 const depthCutoff = 1;
 
+//group nearby objects of the same type together
 const group = objects => {
+	//create an array of groups of objects
 	let groups = [];
-
 	objects.forEach(self => {
 		if (!self.inGroup) {
 			let selfGroup = [self];
@@ -12,6 +14,7 @@ const group = objects => {
 		}
 	});
 
+	//wrap the groups with relevant information
 	let wrappedGroups = [];
 	groups.forEach(g => {
 		let averageDepth = 0;
@@ -30,6 +33,7 @@ const group = objects => {
 	return wrappedGroups;
 };
 
+//recursively check all neighbors to see if they meet criteria
 const findClose = (self, group, objects) => {
 	self.inGroup = true;
 	objects.forEach(other => {

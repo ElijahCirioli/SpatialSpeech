@@ -1,8 +1,9 @@
-let classWeight = 1000;
-let positionWeight = 0.7;
-let relationWeight = 0.3;
-let sizeWeight = 500;
+const classWeight = 1000; //amount of distinction to add if objects are different types
+const positionWeight = 0.7; //weight of distance between objects
+const relationWeight = 0.3; //weight of distance between sum of relational vectors
+const sizeWeight = 500; //weight of size ratio of objects
 
+//add relevant properties to all objects in preparation for matching
 const setupMatch = (left, right) => {
 	left.forEach(l => {
 		l.pos = new Vec(l.bbox[0] + l.bbox[2] / 2, l.bbox[1] + l.bbox[3] / 2);
@@ -27,15 +28,18 @@ const setupMatch = (left, right) => {
 	});
 };
 
+//take one list per eye and determine which objects are the same
 const match = (leftObjs, rightObjs) => {
 	let pairs = [];
 
+	//if one eye has nothing
 	if (rightObjs.length === 0 || leftObjs.length === 0) {
 		return pairs;
 	}
 
 	setupMatch(leftObjs, rightObjs);
 
+	//give each object from the right eye a list of left eye objects and a distinction score
 	rightObjs.forEach(r => {
 		r.matches = [];
 
@@ -62,11 +66,14 @@ const match = (leftObjs, rightObjs) => {
 				score: distinction
 			});
 		});
+
+		//sort matches by lowest distinction to highest
 		r.matches.sort((a, b) => {
 			return a.score - b.score;
 		});
 	});
 
+	//create pairs by checking if another right object has a lower score for the current right object's best match
 	rightObjs.forEach(self => {
 		const closest = self.matches[0];
 		let bestChoice = true;
@@ -87,6 +94,7 @@ const match = (leftObjs, rightObjs) => {
 	return pairs;
 };
 
+//return distance between two vectors
 const distance = (v1, v2) => {
 	return Math.sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y));
 };

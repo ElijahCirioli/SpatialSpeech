@@ -7,6 +7,7 @@ const offsetLabel = document.getElementById("delay-label");
 let cameras = [];
 let leftStream, rightStream;
 
+//make a list of all the available webcams
 const setupCameras = () => {
 	navigator.mediaDevices
 		.enumerateDevices()
@@ -22,6 +23,7 @@ const setupCameras = () => {
 		});
 };
 
+//take a picture for each eye one after another and draw to canvases
 const shutter = async () => {
 	let timeOffset;
 
@@ -33,6 +35,7 @@ const shutter = async () => {
 	shutterSound.play();
 	offsetLabel.innerHTML = "OFFSET: " + timeOffset + "ms";
 
+	//draw the pictures
 	drawCanvas(leftCanvas, leftImg, -1);
 	drawCanvas(rightCanvas, rightImg, 1);
 
@@ -40,6 +43,7 @@ const shutter = async () => {
 	rightDownload.href = rightCanvas.toDataURL("image/jpeg", 1.0);
 };
 
+//take a single photo given an index in the camera list
 const getImage = async index => {
 	const constraints = {
 		video: { deviceId: { exact: cameras[index] }, facingMode: "environment" },
@@ -62,6 +66,7 @@ const getImage = async index => {
 		});
 };
 
+//draw an image to a canvas and mirror if necessary
 const drawCanvas = (canvas, img, scl) => {
 	canvas.width = img.width;
 	canvas.height = img.height;
