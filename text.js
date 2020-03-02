@@ -1,5 +1,5 @@
 //the minimum confidence score for text to be read [0, 100]
-const textThreshold = 80;
+const textThreshold = 60;
 
 //find all text in an image and read it aloud
 const findText = async canvas => {
