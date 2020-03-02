@@ -1,0 +1,20 @@
+#canvas-wrap {
+	display: flex;
+	width: 1350px;
+	justify-content: space-between;
+	margin: auto;
+	flex-wrap: wrap;
+}
+.label {
+	width: 640px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 40px;
+	margin-top: 0;
+}
+#delay-label {
+	width: 1350px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 40px;
+}
