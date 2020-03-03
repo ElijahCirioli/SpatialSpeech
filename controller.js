@@ -2,6 +2,7 @@ let processing;
 
 const setup = () => {
 	processing = true;
+	setupMap();
 	setupModel();
 	setupCameras();
 };
@@ -29,6 +30,9 @@ const objectDetection = async () => {
 	//determine the depth of all objects
 	const objects = determineDepth(pairs);
 
+	//draw the different objects in 3D space on a radar-like map
+	drawMap(objects);
+
 	//group nearby objects of the same type
 	const groups = group(objects);
 
@@ -41,7 +45,7 @@ const objectDetection = async () => {
 //read all text in image aloud
 const textRecognition = async () => {
 	//take image from right camera
-	const rightImage = await getImage(0);
+	const rightImage = await getImage(1);
 	shutterSound.play();
 
 	//draw image to right canvas

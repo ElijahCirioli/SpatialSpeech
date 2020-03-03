@@ -1,6 +1,5 @@
-//maximum distance in pixels and depth in meters that grouped objects can be from each other
-const distanceCutoff = 60;
-const depthCutoff = 1;
+//maximum distance in world space that objects can be apart to be grouped
+const distanceCutoff = 1.5;
 
 //group nearby objects of the same type together
 const group = objects => {
@@ -38,9 +37,9 @@ const findClose = (self, group, objects) => {
 	self.inGroup = true;
 	objects.forEach(other => {
 		if (self !== other && !other.inGroup && self.class === other.class) {
-			if (distance(self.pos, other.pos) <= distanceCutoff && Math.abs(self.depth - other.depth) <= depthCutoff) {
+			if (distance(self.realPos, other.realPos) <= distanceCutoff) {
 				group.push(other);
-				findClose(other);
+				findClose(other, group, objects);
 			}
 		}
 	});
