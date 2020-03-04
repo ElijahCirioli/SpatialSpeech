@@ -1,5 +1,5 @@
 //maximum distance in world space that objects can be apart to be grouped
-const distanceCutoff = 1.5;
+const distanceCutoff = 1;
 
 //group nearby objects of the same type together
 const group = objects => {

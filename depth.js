@@ -1,6 +1,6 @@
 //separation between lenses in meters and focal length in pixels
 const separation = 0.133;
-const focalLength = 940;
+const focalLength = 900;
 
 const ratio = focalLength * separation;
 
