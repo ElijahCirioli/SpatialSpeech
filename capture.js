@@ -27,10 +27,10 @@ const setupCameras = () => {
 const shutter = async () => {
 	let timeOffset;
 
-	const leftImg = await getImage(0);
+	const leftImg = await getImage(1);
 	shutterSound.play();
 	timeOffset = new Date();
-	const rightImg = await getImage(1);
+	const rightImg = await getImage(0);
 	timeOffset = new Date() - timeOffset;
 	shutterSound.play();
 	offsetLabel.innerHTML = "OFFSET: " + timeOffset + "ms";

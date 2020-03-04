@@ -1,4 +1,5 @@
 const mapCanvas = document.getElementById("map-canvas");
+const mapDownload = document.getElementById("map-download");
 
 const fov = (54 * Math.PI) / 180;
 let glassesImage;
@@ -76,6 +77,8 @@ const drawMap = objects => {
 				30,
 				30
 			);
+
+			mapDownload.href = mapCanvas.toDataURL("image/jpeg", 1.0);
 		};
 
 		const index = iconIds.filter(iconObj => obj.class === iconObj.class)[0].id;

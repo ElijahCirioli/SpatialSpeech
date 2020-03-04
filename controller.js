@@ -9,6 +9,12 @@ const setup = () => {
 
 //read depth and direction of all objects in images
 const objectDetection = async () => {
+	if (cameras.length < 2) {
+		speak("Not enough cameras detected.");
+		processing = false;
+		return;
+	}
+
 	//take left and right pictures
 	await shutter();
 
@@ -45,7 +51,7 @@ const objectDetection = async () => {
 //read all text in image aloud
 const textRecognition = async () => {
 	//take image from right camera
-	const rightImage = await getImage(1);
+	const rightImage = await getImage(0);
 	shutterSound.play();
 
 	//draw image to right canvas
@@ -76,6 +82,23 @@ document.onmousedown = e => {
 		} else {
 			objectDetection();
 		}
+	}
+};
+
+document.getElementById("collect-button").onmousedown = e => {
+	e = window.event || e;
+	e.preventDefault();
+
+	setTimeout(downloadAll, 2000);
+};
+
+const downloadAll = () => {
+	if (processing) {
+		setTimeout(downloadAll, 250);
+	} else {
+		mapDownload.click();
+		leftDownload.click();
+		rightDownload.click();
 	}
 };
 
