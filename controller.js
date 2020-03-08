@@ -58,7 +58,13 @@ const textRecognition = async () => {
 	drawCanvas(rightCanvas, rightImage, 1);
 
 	//detect all text from right canvas and read aloud
-	await findText(rightCanvas);
+	const text = await findText(rightCanvas);
+
+	if (text.length > 0) {
+		speak(text);
+	} else {
+		speak("No text detected.");
+	}
 
 	processing = false;
 };

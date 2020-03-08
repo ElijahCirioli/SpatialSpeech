@@ -1,8 +1,5 @@
-//separation between lenses in meters and focal length in pixels
-const separation = 0.133;
-const focalLength = 900;
-
-const ratio = focalLength * separation;
+const base = 19199.437;
+const power = 2.1040201;
 
 //determine the depth in meters of pairs of objects
 const determineDepth = pairs => {
@@ -28,7 +25,7 @@ const determineDepth = pairs => {
 		}
 
 		//find distance and average position between eyes
-		const distance = ratio / horizontal;
+		const distance = base / Math.pow(horizontal, power);
 		const averagePos = new Vec((p.left.pos.x + p.right.pos.x) / 2, (p.left.pos.y + p.right.pos.y) / 2);
 
 		//define position in 3D space looking down as (x, z)
